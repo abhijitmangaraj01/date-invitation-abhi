@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Little Invitation for Khusi</title>
+    <style>
+        :root {
+            --rose: #d94768;
+            --ink: #642b40;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            overflow: hidden;
+            display: grid;
+            place-items: center;
+            padding: 24px;
+            font-family: Georgia, 'Times New Roman', serif;
+            color: var(--ink);
+            background: radial-gradient(circle at top, #fffdfb, #ffe1e5 65%, #f8c4ce);
+        }
+
+        .card {
+            position: relative;
+            z-index: 1;
+            width: min(510px, 100%);
+            padding: 42px 30px 32px;
+            text-align: center;
+            border: 1px solid #f3c4cc;
+            border-radius: 28px;
+            background: rgba(255, 250, 248, .94);
+            box-shadow: 0 22px 70px #9f3f5a2b;
+            animation: arrive .8s ease-out both;
+        }
+
+        .eyebrow {
+            margin: 0 0 8px;
+            color: var(--rose);
+            font: 700 .76rem/1.4 system-ui, sans-serif;
+            letter-spacing: .2em;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: clamp(2.3rem, 9vw, 3.5rem);
+            font-weight: 500;
+        }
+
+        .heart {
+            color: var(--rose);
+            display: inline-block;
+            animation: heartbeat 1.3s infinite;
+        }
+
+        .teddy {
+            display: block;
+            margin: 15px auto 8px;
+            font-size: 4.6rem;
+            transform-origin: bottom center;
+            animation: teddy-sway 2.4s ease-in-out infinite;
+        }
+
+        .message {
+            max-width: 380px;
+            margin: 15px auto 22px;
+            font-size: 1.12rem;
+            line-height: 1.65;
+        }
+
+        .details {
+            margin: 0 auto 24px;
+            padding: 13px;
+            max-width: 330px;
+            border-radius: 14px;
+            background: #fff0f1;
+            font: 600 .96rem/1.8 system-ui, sans-serif;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        button,
+        .github {
+            border: 0;
+            border-radius: 999px;
+            padding: 12px 22px;
+            font: 700 .95rem system-ui, sans-serif;
+            cursor: pointer;
+            text-decoration: none;
+            transition: transform .2s, box-shadow .2s;
+        }
+
+        button:hover,
+        .github:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 7px 18px #a9405c2b;
+        }
+
+        .yes {
+            color: white;
+            background: var(--rose);
+        }
+
+        .github {
+            color: var(--rose);
+            background: white;
+            border: 1px solid #f0c3cb;
+        }
+
+        #reply {
+            min-height: 1.5em;
+            margin: 17px 0 0;
+            color: var(--rose);
+            font-style: italic;
+        }
+
+        .rose {
+            position: fixed;
+            z-index: 0;
+            top: -50px;
+            pointer-events: none;
+            animation: fall linear forwards;
+            filter: drop-shadow(0 2px 2px #7f1e3424);
+        }
+
+        @keyframes arrive {
+            from {
+                opacity: 0;
+                transform: translateY(18px) scale(.98);
+            }
+
+            to {
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        @keyframes heartbeat {
+            50% {
+                transform: scale(1.25);
+            }
+        }
+
+        @keyframes teddy-sway {
+
+            0%,
+            100% {
+                transform: rotate(-7deg);
+            }
+
+            50% {
+                transform: rotate(7deg) translateY(-5px);
+            }
+        }
+
+        @keyframes fall {
+            to {
+                transform: translate3d(var(--drift), 110vh, 0) rotate(540deg);
+                opacity: .15;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            *,
+            *::before,
+            *::after {
+                animation-duration: .01ms !important;
+                animation-iteration-count: 1 !important;
+                scroll-behavior: auto !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <main class="card">
+        <p class="eyebrow">A little question for you</p>
+        <h1>Khusi, be my date? <span class="heart">♥</span></h1>
+        <span class="teddy" role="img" aria-label="A cute teddy bear">🧸</span>
+        <p class="message">I'd love to spend a lovely evening with you—good food, lots of laughs, and a little bit of
+            magic.</p>
+        <div class="details">🌹 A cozy dinner &amp; a sunset stroll<br>📅 Whenever you're free</div>
+        <div class="buttons">
+            <button class="yes"
+                onclick="document.getElementById('reply').textContent='Yay! You just made my day, Khusi! 💕'">Yes, I'd
+                love to!</button>
+            <a class="github" href="https://github.com/" target="_blank" rel="noopener noreferrer">GitHub</a>
+        </div>
+        <p id="reply" aria-live="polite"></p>
+    </main>
+    <script>
+        function addRose() {
+            const rose = document.createElement('span');
+            rose.className = 'rose';
+            rose.textContent = Math.random() < 0.65 ? '🌹' : '🌸';
+            rose.style.left = Math.random() * 100 + 'vw';
+            rose.style.fontSize = (18 + Math.random() * 17) + 'px';
+            rose.style.setProperty('--drift', (Math.random() * 140 - 70) + 'px');
+            rose.style.animationDuration = (6 + Math.random() * 6) + 's';
+            document.body.appendChild(rose);
+            rose.addEventListener('animationend', () => rose.remove());
+        }
+        setInterval(addRose, 500);
+    </script>
+</body>
+
+</html>
